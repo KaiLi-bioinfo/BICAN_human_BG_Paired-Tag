@@ -18,6 +18,13 @@ Key related resources and publications include:
   **Corresponding atlas data:**  
   https://brain-map.org/consortia/hmba
 
+- **Basal ganglia HiC loop & ABC link:**  
+  A Multimodal Single-Cell Epigenomic and 3D Genome Atlas of the Human Basal Ganglia [link]
+
+- **Basal ganglia Visualization of single-cell multi-omics data:**  
+  An Integrated Single-Cell and Epigenomic Resource for Comparative Analysis of the Basal Ganglia [link]
+  https://basalganglia.epigenomes.net/.
+
 - **Paired-Tag method and analysis:**  
   *Nature Methods* (2021) — Introducing the Paired-Tag protocol for joint profiling of histone modifications and transcription.  
   https://www.nature.com/articles/s41592-021-01060-3  
