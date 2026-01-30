@@ -23,7 +23,7 @@ Key related resources and publications include:
   https://www.nature.com/articles/s41592-021-01060-3  
   *Nature structural & molecular biology* (2023) — Droplet-based single-cell joint profiling of histone modifications and transcriptomes.
   https://www.nature.com/articles/s41594-023-01060-1
-  https://github.com/Xieeeee/Droplet-Paired-Tag
+  [Coffee]https://github.com/Xieeeee/Droplet-Paired-Tag
   
 - **Homeobox gene family overview:**  
   Springer Biology Reports (2007) — Review of homeobox genes and developmental regulatory roles.  
