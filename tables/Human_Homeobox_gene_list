@@ -1,0 +1,156 @@
+ # HOX clusters
+    'HOXA1':'HOX','HOXB1':'HOX','HOXD1':'HOX',
+    'HOXA2':'HOX','HOXB2':'HOX',
+    'HOXA3':'HOX','HOXB3':'HOX','HOXD3':'HOX',
+    'HOXA4':'HOX','HOXB4':'HOX','HOXC4':'HOX','HOXD4':'HOX',
+    'HOXA5':'HOX','HOXB5':'HOX','HOXC5':'HOX',
+    'HOXA6':'HOX','HOXB6':'HOX','HOXC6':'HOX',
+    'HOXA7':'HOX','HOXB7':'HOX','HOXB8':'HOX','HOXC8':'HOX','HOXD8':'HOX',
+    'HOXA9':'HOX','HOXB9':'HOX','HOXC9':'HOX','HOXD9':'HOX',
+    'HOXA10':'HOX','HOXC10':'HOX','HOXD10':'HOX',
+    'HOXA11':'HOX','HOXC11':'HOX','HOXD11':'HOX',
+    'HOXC12':'HOX','HOXD12':'HOX',
+    'HOXA13':'HOX','HOXB13':'HOX','HOXC13':'HOX','HOXD13':'HOX',
+
+    # Para-HOX
+    'CDX1':'CDX','CDX2':'CDX','CDX4':'CDX',
+    'EVX1':'EVX','EVX2':'EVX',
+    'GBX1':'GBX','GBX2':'GBX',
+    'GSX1':'GSX','GSX2':'GSX',
+    'MNX1':'MNX',
+    'MEOX1':'MEOX','MEOX2':'MEOX',
+    'PDX1':'PDX',
+
+    # DLX family
+    'DLX1':'DLX','DLX2':'DLX','DLX3':'DLX','DLX4':'DLX','DLX5':'DLX','DLX6':'DLX',
+
+    # BARX/BARHL
+    'BARX1':'BARX','BARX2':'BARX',
+    'BARHL1':'BARHL','BARHL2':'BARHL',
+
+    # LBX / DBX / EMX
+    'LBX1':'LBX','LBX2':'LBX',
+    'DBX1':'DBX','DBX2':'DBX',
+    'EMX1':'EMX','EMX2':'EMX',
+
+    # MSX
+    'MSX1':'MSX','MSX2':'MSX',
+
+    # NKX families
+    'NKX1.1':'NKX','NKX1.2':'NKX',
+    'NKX2.1':'NKX','NKX2.2':'NKX','NKX2.3':'NKX','NKX2.4':'NKX','NKX2.5':'NKX','NKX2.6':'NKX','NKX2.8':'NKX',
+    'NKX3.1':'NKX','NKX3.2':'NKX',
+    'NKX6.1':'NKX','NKX6.2':'NKX','NKX6.3':'NKX',
+
+    # HMX/HHEX/HLX
+    'HMX1':'HMX','HMX2':'HMX','HMX3':'HMX',
+    'HHEX':'HHEX','HLX':'HLX',
+
+    # TLX/VAX/VENTX
+    'TLX1':'TLX','TLX2':'TLX','TLX3':'TLX',
+    'VAX1':'VAX','VAX2':'VAX',
+    'VENTX':'VENTX',
+
+    # ALX/ARGFX/ARX
+    'ALX1':'ALX','ALX3':'ALX','ALX4':'ALX',
+    'ARGFX':'ARGFX','ARX':'ARX',
+
+    # OTX/CRX
+    'OTX1':'OTX','OTX2':'OTX','CRX':'OTX',
+
+    # RAX
+    'RAX':'RAX','RAX2':'RAX',
+
+    # VSX
+    'VSX1':'VSX','VSX2':'VSX',
+
+    # ISL/LHX/LMX
+    'ISL1':'ISL','ISL2':'ISL',
+    'LHX1':'LHX','LHX2':'LHX','LHX3':'LHX','LHX4':'LHX','LHX5':'LHX','LHX6':'LHX','LHX8':'LHX','LHX9':'LHX',
+    'LMX1A':'LMX','LMX1B':'LMX',
+
+    # PAX family
+    'PAX3':'PAX','PAX4':'PAX','PAX6':'PAX','PAX7':'PAX',
+
+    # PHOX
+    'PHOX2A':'PHOX','PHOX2B':'PHOX',
+
+    # PITX
+    'PITX1':'PITX','PITX2':'PITX','PITX3':'PITX',
+
+    # PRRX/PROP
+    'PRRX1':'PRRX','PRRX2':'PRRX','PROP1':'PROP',
+
+    # RHOX
+    'RHOXF1':'RHOX','RHOXF2':'RHOX','RHOXF2B':'RHOX',
+
+    # SEBOX/SHOX
+    'SEBOX':'SEBOX','SHOX':'SHOX','SHOX2':'SHOX',
+
+    # UNCX
+    'UNCX':'UNCX',
+
+    # LEUTX
+    'LEUTX':'LEUTX',
+
+    # NANOG/HOPX/ISX/NOBOX/MIXL
+    'NANOG':'NANOG','HOPX':'HOP','ISX':'ISX','NOBOX':'NOBOX','MIXL':'MIX',
+
+    # OTP
+    'OTP':'OTP',
+
+    # GSC
+    'GSC':'GSC','GSC2':'GSC',
+
+    # HESX
+    'HESX1':'HESX',
+
+    # POU family
+    'POU1F1':'POU','POU2F1':'POU','POU2F2':'POU','POU2F3':'POU',
+    'POU3F1':'POU','POU3F2':'POU','POU3F3':'POU','POU3F4':'POU',
+    'POU4F1':'POU','POU4F2':'POU','POU4F3':'POU',
+    'POU5F1':'POU','POU5F2':'POU',
+    'POU6F1':'POU','POU6F2':'POU',
+
+    # HMBOX/HNF1
+    'HMBOX1':'HMBOX','HNF1A':'HNF1','HNF1B':'HNF1',
+
+    # SIX
+    'SIX1':'SIX','SIX2':'SIX','SIX3':'SIX','SIX4':'SIX','SIX5':'SIX','SIX6':'SIX',
+
+    # IRX
+    'IRX1':'IRX','IRX2':'IRX','IRX3':'IRX','IRX4':'IRX','IRX5':'IRX','IRX6':'IRX',
+
+    # MEIS/PBX/PKNOX/TGIF
+    'MEIS1':'MEIS','MEIS2':'MEIS','MEIS3':'MEIS',
+    'PBX1':'PBX','PBX2':'PBX','PBX3':'PBX','PBX4':'PBX',
+    'PKNOX1':'PKNOX','PKNOX2':'PKNOX',
+    'TGIF1':'TGIF','TGIF2':'TGIF','TGIF2LX':'TGIF','TGIF2LY':'TGIF',
+
+    # CUX/ONECUT/SATB
+    'CUX1':'CUX','CUX2':'CUX',
+    'ONECUT1':'ONECUT','ONECUT2':'ONECUT','ONECUT3':'ONECUT',
+    'SATB1':'SATB','SATB2':'SATB',
+
+    # PROX
+    'PROX1':'PROX','PROX2':'PROX',
+
+    # ADNP/TSHZ
+    'ADNP':'ADNP','ADNP2':'ADNP',
+    'TSHZ1':'TSHZ','TSHZ2':'TSHZ','TSHZ3':'TSHZ',
+
+    # ZEB/ZFHX/ZHX/HOMEZ
+    'ZEB1':'ZEB','ZEB2':'ZEB',
+    'ZFHX2I':'ZFHX','ZFHX2II':'ZFHX','ZFHX2III':'ZFHX',
+    'ZFHX3I':'ZFHX','ZFHX3II':'ZFHX','ZFHX3III':'ZFHX','ZFHX3IV':'ZFHX',
+    'ZFHX4I':'ZFHX','ZFHX4II':'ZFHX','ZFHX4III':'ZFHX','ZFHX4IV':'ZFHX',
+    'ZHX1I':'ZHX','ZHX1II':'ZHX','ZHX1III':'ZHX','ZHX1IV':'ZHX','ZHX1V':'ZHX',
+    'ZHX2I':'ZHX','ZHX2II':'ZHX','ZHX2III':'ZHX','ZHX2IV':'ZHX',
+    'ZHX3I':'ZHX','ZHX3II':'ZHX','ZHX3III':'ZHX','ZHX3IV':'ZHX','ZHX3V':'ZHX',
+    'HOMEZI':'HOMEZ','HOMEZII':'HOMEZ','HOMEZIII':'HOMEZ',
+
+    # Misc
+    'BSX':'BSX','DRGX':'DRGX','DMBX1':'DMBX','DPRX':'DPRX',
+    'DUXAI':'DUX','DUXAII':'DUX','DUXBI':'DUX','DUXBII':'DUX',
+    'ESX1':'ESX','ARGFX':'ARGFX','NOTO':'NOTO','HDX':'HDX',
+    'CERS2':'CERS','CERS3':'CERS','CERS4':'CERS','CERS5':'CERS','CERS6':'CERS'
