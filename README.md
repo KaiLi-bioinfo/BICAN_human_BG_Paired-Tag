@@ -9,3 +9,25 @@ This repository supports a comprehensive single-cell Paired-Tag study of the adu
 
 ## Data
 Raw sequencing data are available through controlled-access repositories. Processed data objects are described in the analysis notebooks.
+
+Key related resources and publications include:
+
+- **Basal ganglia cell-type annotation reference:**  
+  Hu et al., *bioRxiv* (2025). Preprint describing comprehensive single-cell cell type labels used in this work.  
+  https://www.biorxiv.org/content/10.64898/2025.12.15.694496v1  
+  **Corresponding atlas data:**  
+  https://brain-map.org/consortia/hmba
+
+- **Paired-Tag method and analysis:**  
+  *Nature Methods* (2021) — Introducing the Paired-Tag protocol for joint profiling of histone modifications and transcription.  
+  https://www.nature.com/articles/s41592-021-01060-3  
+  *Nature Methods* (2023) — Advances in multi-omic single-cell technologies and analytical frameworks.  
+  https://www.nature.com/articles/s41594-023-01060-1
+
+- **Homeobox gene family overview:**  
+  Springer Biology Reports (2007) — Review of homeobox genes and developmental regulatory roles.  
+  https://link.springer.com/article/10.1186/1741-7007-5-47  
+  Supplementary table of gene annotations:  
+  https://static-content.springer.com/esm/art%3A10.1186%2F1741-7007-5-47/MediaObjects/12915_2007_143_MOESM7_ESM.htm
+
+Please see the respective publications and repositories for detailed data access instructions and usage agreements.
