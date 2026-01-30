@@ -21,9 +21,9 @@ Key related resources and publications include:
 - **Paired-Tag method and analysis:**  
   *Nature Methods* (2021) — Introducing the Paired-Tag protocol for joint profiling of histone modifications and transcription.  
   https://www.nature.com/articles/s41592-021-01060-3  
-  *Nature Methods* (2023) — Advances in multi-omic single-cell technologies and analytical frameworks.  
-  https://www.nature.com/articles/s41594-023-01060-1
-
+  *Nature structural & molecular biology* (2023) — Droplet-based single-cell joint profiling of histone modifications and transcriptomes.
+  https://www.nature.com/articles/s41594-023-01060-1  
+  
 - **Homeobox gene family overview:**  
   Springer Biology Reports (2007) — Review of homeobox genes and developmental regulatory roles.  
   https://link.springer.com/article/10.1186/1741-7007-5-47  
