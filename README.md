@@ -50,7 +50,7 @@ References:
   *Nature structural & molecular biology* (2023) — Droplet-based single-cell joint profiling of histone modifications and transcriptomes.
   https://www.nature.com/articles/s41594-023-01060-1
      https://github.com/Xieeeee/Droplet-Paired-Tag
-- **Reference for enhancer & sliencer annotation strategies Based on HiC loop:**  
+- **enhancer & sliencer annotation strategies Based on HiC loop:**  
   Subtype-specific 3D genome alteration in acute myeloid leukaemia
   https://pubmed.ncbi.nlm.nih.gov/36289338/  
   
