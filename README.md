@@ -51,8 +51,7 @@ References:
   https://www.nature.com/articles/s41594-023-01060-1
      https://github.com/Xieeeee/Droplet-Paired-Tag
 - **Reference for enhancer & sliencer annotation strategies Based on HiC loop:**  
-References:
-- Subtype-specific 3D genome alteration in acute myeloid leukaemia
+  Subtype-specific 3D genome alteration in acute myeloid leukaemia
   https://pubmed.ncbi.nlm.nih.gov/36289338/  
   
 - **Homeobox gene family overview:**  
