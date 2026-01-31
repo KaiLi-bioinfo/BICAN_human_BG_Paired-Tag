@@ -1,3 +1,23 @@
+This repository provides a cluster-ready, reproducible pipeline for:
+	•	Cell Ranger ARC mkfastq
+	•	Pre-index demultiplexing
+	•	Cell Ranger ATAC alignment
+	•	Deduplication (pre-index aware)
+	•	Fragment generation
+	•	BigWig generation
+	•	MACS2 peak calling (narrow/broad)
+	•	FRiP calculation
+	•	TSS enrichment QC
+
+Designed for:
+	•	single-cell ATAC / CUT&Tag / Paired-Tag
+	•	multi-target histone profiling (H3K27ac / H3K27me3 / H3K9me3)
+	•	SLURM cluster
+
+
+
+
+
 # 1) mkfastq（Cell Ranger ARC）
 
 #!/usr/bin/env bash
