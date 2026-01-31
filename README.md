@@ -24,6 +24,11 @@ References:
 - ChromHMM strategy  
   https://www.encodeproject.org/publications/8468259b-3be2-4483-970c-9ce1d4d93f3a/
 
+## Reference for enhancer & sliencer annotation strategies Based on HiC loop:
+References:
+- Subtype-specific 3D genome alteration in acute myeloid leukaemia
+  https://pubmed.ncbi.nlm.nih.gov/36289338/  
+
 ## Key related resources and publications include:
 
 - **Basal ganglia cell-type annotation reference:**  
