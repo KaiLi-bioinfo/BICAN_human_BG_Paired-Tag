@@ -32,6 +32,9 @@ References:
   **Corresponding atlas data:**  
   https://brain-map.org/consortia/hmba
 
+- **Human Basal ganglia  Droplet Paired-Tag datasets deposited at NeMo:**  
+  https://assets.nemoarchive.org/dat-rrstbt3 
+
 - **Basal ganglia HiC loop & ABC link:**  
   A Multimodal Single-Cell Epigenomic and 3D Genome Atlas of the Human Basal Ganglia. [link]
   https://github.com/DingWB/BG_snm3C-seq
