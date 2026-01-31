@@ -24,7 +24,7 @@ References:
 - ChromHMM strategy  
   https://www.encodeproject.org/publications/8468259b-3be2-4483-970c-9ce1d4d93f3a/
 
-Key related resources and publications include:
+## Key related resources and publications include:
 
 - **Basal ganglia cell-type annotation reference:**  
   Hu et al., *bioRxiv* (2025). Preprint describing comprehensive single-cell cell type labels used in this work.  
