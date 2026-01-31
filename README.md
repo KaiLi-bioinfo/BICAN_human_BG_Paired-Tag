@@ -23,11 +23,7 @@ References:
 
 - ChromHMM strategy  
   https://www.encodeproject.org/publications/8468259b-3be2-4483-970c-9ce1d4d93f3a/
-
-## Reference for enhancer & sliencer annotation strategies Based on HiC loop:
-References:
-- Subtype-specific 3D genome alteration in acute myeloid leukaemia
-  https://pubmed.ncbi.nlm.nih.gov/36289338/  
+  
 
 ## Key related resources and publications include:
 
@@ -54,7 +50,10 @@ References:
   *Nature structural & molecular biology* (2023) — Droplet-based single-cell joint profiling of histone modifications and transcriptomes.
   https://www.nature.com/articles/s41594-023-01060-1
      https://github.com/Xieeeee/Droplet-Paired-Tag
-
+- **Reference for enhancer & sliencer annotation strategies Based on HiC loop:**  
+References:
+- Subtype-specific 3D genome alteration in acute myeloid leukaemia
+  https://pubmed.ncbi.nlm.nih.gov/36289338/  
   
 - **Homeobox gene family overview:**  
   Springer Biology Reports (2007) — Review of homeobox genes and developmental regulatory roles.  
