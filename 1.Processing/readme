@@ -1,1 +1,316 @@
-##FASQ file processing ##
+# 1) mkfastq（Cell Ranger ARC）
+
+#!/usr/bin/env bash
+#SBATCH -J arc_mkfastq
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -c 8
+#SBATCH -t 16:00:00
+#SBATCH -o arc_mkfastq.out
+#SBATCH -e arc_mkfastq.err
+#SBATCH -p ${SLURM_PARTITION}
+#SBATCH -A ${SLURM_ACCOUNT}
+
+set -euo pipefail
+
+# --------------------
+# User configuration
+# --------------------
+RUN_ID="RUN_FOLDER_NAME"                 # e.g. 250512_XXXX
+PROJECT_ROOT="/path/to/project_root"     # e.g. shared project directory
+BCL_DIR="${PROJECT_ROOT}/${RUN_ID}"
+FASTQ_OUTDIR="${PROJECT_ROOT}/fastq/${RUN_ID}"
+SAMPLESHEET="${FASTQ_OUTDIR}/${RUN_ID}_SampleSheet.csv"
+
+CELLRANGER_ARC="${TOOLS_DIR}/cellranger-arc/bin/cellranger-arc"
+# --------------------
+
+mkdir -p "${FASTQ_OUTDIR}"
+
+"${CELLRANGER_ARC}" mkfastq \
+  --run "${BCL_DIR}" \
+  --csv "${SAMPLESHEET}" \
+  --output-dir "${FASTQ_OUTDIR}"
+
+
+# 2) Peak calling（MACS2）
+
+
+#!/usr/bin/env bash
+#SBATCH -J macs2_callpeak
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -c 24
+#SBATCH -t 6:00:00
+#SBATCH -o macs2_callpeak.out
+#SBATCH -e macs2_callpeak.err
+#SBATCH -p ${SLURM_PARTITION}
+#SBATCH -A ${SLURM_ACCOUNT}
+
+set -euo pipefail
+
+PROJECT_ROOT="/path/to/project_root"
+LIB_ID="LIBRARY_ID"  # e.g. BA486_xxx
+CR_OUT="${PROJECT_ROOT}/cellranger/${LIB_ID}"   # contains outs/possorted_bam.bam
+MACS2_OUT="${PROJECT_ROOT}/macs2"
+
+mkdir -p "${MACS2_OUT}"
+
+macs2 callpeak \
+  -t "${CR_OUT}/outs/possorted_bam.bam" \
+  -g hs \
+  -n "${LIB_ID}" \
+  -f BAMPE \
+  -q 0.05 \
+  --outdir "${MACS2_OUT}" \
+  --nomodel --extsize 200 --nolambda \
+  --broad --broad-cutoff 0.1
+
+
+
+# 3) Get FRiP from fragments
+
+#!/usr/bin/env bash
+#SBATCH -J frip_calc
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -c 16
+#SBATCH -t 6:00:00
+#SBATCH -o frip_calc.out
+#SBATCH -e frip_calc.err
+#SBATCH -p ${SLURM_PARTITION}
+#SBATCH -A ${SLURM_ACCOUNT}
+
+set -euo pipefail
+
+PROJECT_ROOT="/path/to/project_root"
+LIB_ID="LIBRARY_ID"
+CR_OUT="${PROJECT_ROOT}/cellranger/${LIB_ID}"
+MACS2_OUT="${PROJECT_ROOT}/macs2"
+PEAK_FILE="${MACS2_OUT}/${LIB_ID}_peaks.broadPeak"   # or narrowPeak
+COUNT_FRAG_SCRIPT="${SCRIPTS_DIR}/10XcountFrag.py"
+
+# 1) clean fragments: remove header lines starting with '#', sort, bgzip, tabix
+zcat "${CR_OUT}/outs/fragments.tsv.gz" \
+  | awk 'substr($1,1,1)!="#" {print}' \
+  | sort -k1,1 -k2,2n \
+  > "${CR_OUT}/outs/${LIB_ID}_clean_fragments.tsv"
+
+bgzip -f "${CR_OUT}/outs/${LIB_ID}_clean_fragments.tsv"
+tabix -p bed "${CR_OUT}/outs/${LIB_ID}_clean_fragments.tsv.gz"
+
+# 2) intersect fragments with peaks for FRiP denominator/numerator
+zcat "${CR_OUT}/outs/fragments.tsv.gz" \
+  | bedtools intersect -wa -u -a stdin -b "${PEAK_FILE}" \
+  > "${MACS2_OUT}/${LIB_ID}_FRiP_fragments.tsv"
+
+# 3) fragment counting
+python "${COUNT_FRAG_SCRIPT}" \
+  --input "${CR_OUT}/outs/fragments.tsv.gz" \
+  --output "${CR_OUT}/outs/${LIB_ID}_fragments_count.xls"
+
+python "${COUNT_FRAG_SCRIPT}" \
+  --input "${MACS2_OUT}/${LIB_ID}_FRiP_fragments.tsv" \
+  --output "${MACS2_OUT}/${LIB_ID}_FRiP_fragments_count.xls"
+
+
+
+
+# 4) pre-index split + peak calling + FRiP all-in-one
+
+#!/usr/bin/env bash
+#SBATCH -J dpt_preindex_pipeline
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -c 24
+#SBATCH -t 18:00:00
+#SBATCH -o dpt_preindex_pipeline.out
+#SBATCH -e dpt_preindex_pipeline.err
+#SBATCH -p ${SLURM_PARTITION}
+#SBATCH -A ${SLURM_ACCOUNT}
+
+set -euo pipefail
+
+# ============================================================
+# 0) Configuration (edit these for your cluster / project)
+# ============================================================
+PROJECT_ROOT="/path/to/project_root"
+LIB_ID="LIBRARY_ID"                       # e.g. BA483_xxx
+FASTQ_DIR="${PROJECT_ROOT}/fastq/${LIB_ID}"
+OUT_ROOT="${PROJECT_ROOT}/outputs/${LIB_ID}"
+
+SCRIPT_DIR="${PROJECT_ROOT}/scripts"
+PAIR_META="${PROJECT_ROOT}/metadata/preindex_target.tsv"   # two columns: preindex \t Target
+
+# References
+REF_HG38="${REF_DIR}/refdata-cellranger-arc-GRCh38"
+REF_MM10="${REF_DIR}/mm10"
+BLACKLIST_HG38="${REF_DIR}/hg38-blacklist.bed"
+BLACKLIST_MM10="${REF_DIR}/mm10-blacklist.bed"
+TSS_GTF_HG38="${REF_DIR}/gencode.hg38.gtf"
+TSS_GTF_MM10="${REF_DIR}/gencode.mm10.gtf"
+
+# Tools (assumed on PATH, or set absolute paths)
+CELLRANGER_ATAC="cellranger-atac"
+SAMTOOLS="samtools"
+MACS2="macs2"
+BEDTOOLS="bedtools"
+BAM_COVERAGE="bamCoverage"
+COMPUTE_MATRIX="computeMatrix"
+PLOT_PROFILE="plotProfile"
+PLOT_HEATMAP="plotHeatmap"
+SINTO="sinto"
+
+COUNT_FRAG_SCRIPT="${SCRIPT_DIR}/10XcountFrag.py"
+PREINDEX_CB2BB_SCRIPT="${SCRIPT_DIR}/scifi.preindex_CB_to_BB.py"
+EXTRACT_BY_META_SCRIPT="${SCRIPT_DIR}/extract10X_from_bam_with_paired_meta.py"
+GET_SIZE_SCRIPT="${SCRIPT_DIR}/getSize.py"
+
+# Input sample sheet: each line "sample genome"
+META_TXT="${PROJECT_ROOT}/metadata/Multiome_DNA_ref.txt"
+# Example:
+# SAMPLE_A  hg38
+# SAMPLE_B  mm10
+# ============================================================
+
+mkdir -p "${OUT_ROOT}"/{preindex,mapping,bw,macs2,logs}
+
+while read -r SAMPLE GENOME; do
+  echo "[INFO] Processing sample=${SAMPLE} genome=${GENOME}"
+
+  if [[ "${GENOME}" == "hg38" ]]; then
+    CELLRANGER_REF="${REF_HG38}"
+    BLACKLIST="${BLACKLIST_HG38}"
+    TSS_GTF="${TSS_GTF_HG38}"
+    MACS2_G="hs"
+    USE_CHROM="(?i)^chr"
+  elif [[ "${GENOME}" == "mm10" ]]; then
+    CELLRANGER_REF="${REF_MM10}"
+    BLACKLIST="${BLACKLIST_MM10}"
+    TSS_GTF="${TSS_GTF_MM10}"
+    MACS2_G="mm"
+    USE_CHROM="(?i)^chr"
+  else
+    echo "[ERROR] Unsupported genome: ${GENOME}" >&2
+    exit 1
+  fi
+
+  # ------------------------------------------------------------
+  # 1) (Optional) merge fastqs if needed
+  #    NOTE: keep this section minimal in public repo;
+  #    implement your own lane merge policy if needed.
+  # ------------------------------------------------------------
+
+  # ------------------------------------------------------------
+  # 2) Pre-index demultiplexing (project-specific)
+  #    Replace with your own preindex splitting step/tool.
+  # ------------------------------------------------------------
+  # Example placeholder:
+  # upstools sepType_DPT "${FASTQ_DIR}/${SAMPLE}" "${NLEN}"
+
+  # ------------------------------------------------------------
+  # 3) Cell Ranger ATAC
+  # ------------------------------------------------------------
+  cd "${FASTQ_DIR}"
+  "${CELLRANGER_ATAC}" count \
+    --id="${SAMPLE}" \
+    --reference="${CELLRANGER_REF}" \
+    --fastqs="${OUT_ROOT}/preindex" \
+    --sample="${SAMPLE}" \
+    --chemistry=ARC-v1
+
+  # ------------------------------------------------------------
+  # 4) Dedup considering pre-index barcode (BB tag)
+  # ------------------------------------------------------------
+  python "${PREINDEX_CB2BB_SCRIPT}" --in "${FASTQ_DIR}/${SAMPLE}/outs/possorted_bam.bam"
+
+  "${SAMTOOLS}" index "${FASTQ_DIR}/${SAMPLE}/outs/possorted_bam.bam.BB.bam"
+
+  # ------------------------------------------------------------
+  # 5) Re-generate fragments.tsv.gz (using BB tag)
+  # ------------------------------------------------------------
+  mv "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv.gz" \
+     "${FASTQ_DIR}/${SAMPLE}/outs/Undemultiplex_fragments.tsv.gz" || true
+
+  "${SINTO}" fragments \
+    -b "${FASTQ_DIR}/${SAMPLE}/outs/possorted_bam.bam.BB.bam" \
+    -f "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv" \
+    -t BB --use_chrom "${USE_CHROM}"
+
+  sort -k1,1 -k2,2n "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv" \
+    > "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv.tmp"
+  mv "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv.tmp" "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv"
+
+  bgzip -f "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv"
+  tabix -p bed "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv.gz"
+
+  python "${COUNT_FRAG_SCRIPT}" \
+    --input "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv.gz" \
+    --output "${OUT_ROOT}/macs2/${SAMPLE}_fragments_count.xls"
+
+  # ------------------------------------------------------------
+  # 6) Split BAM by preindex->Target mapping
+  # ------------------------------------------------------------
+  python "${EXTRACT_BY_META_SCRIPT}" \
+    --cluster "${PAIR_META}" \
+    --inbam "${FASTQ_DIR}/${SAMPLE}/outs/possorted_bam.bam.BB.bam" \
+    --outprfx "${OUT_ROOT}/mapping/${SAMPLE}"
+
+  # ------------------------------------------------------------
+  # 7) For each target bam: bigwig + peak calling + FRiP
+  # ------------------------------------------------------------
+  for SAM in "${OUT_ROOT}/mapping/${SAMPLE}"_*.sam; do
+    [[ -e "$SAM" ]] || continue
+    TARGET_PREFIX="$(basename "${SAM}" .sam)"
+    BAM="${OUT_ROOT}/mapping/${TARGET_PREFIX}.bam"
+
+    "${SAMTOOLS}" sort -o "${BAM}" "${SAM}"
+    "${SAMTOOLS}" index "${BAM}"
+
+    "${BAM_COVERAGE}" -b "${BAM}" -o "${OUT_ROOT}/bw/${TARGET_PREFIX}.bw" \
+      -p max --normalizeUsing RPKM -bl "${BLACKLIST}"
+
+    # Peak calling rule:
+    # - H3K27ac: narrow peaks
+    # - others: broad peaks with estimated fragment size
+    if [[ "${TARGET_PREFIX}" == *"H3K27ac"* ]]; then
+      "${MACS2}" callpeak -t "${BAM}" -g "${MACS2_G}" -n "${TARGET_PREFIX}" \
+        -f BAMPE --outdir "${OUT_ROOT}/macs2" -q 0.05
+      PEAK_TYPE="narrowPeak"
+    else
+      EST_SIZE="$(python "${GET_SIZE_SCRIPT}" --bam "${BAM}" | awk '{print $NF}')"
+      "${MACS2}" callpeak -t "${BAM}" -g "${MACS2_G}" -n "${TARGET_PREFIX}" \
+        -f BAMPE --outdir "${OUT_ROOT}/macs2" -q 0.05 \
+        --nomodel --extsize "${EST_SIZE}" --nolambda --broad --broad-cutoff 0.1
+      PEAK_TYPE="broadPeak"
+    fi
+
+    PEAK_FILE="${OUT_ROOT}/macs2/${TARGET_PREFIX}_peaks.${PEAK_TYPE}"
+
+    zcat "${FASTQ_DIR}/${SAMPLE}/outs/fragments.tsv.gz" \
+      | egrep -v '^#' \
+      | "${BEDTOOLS}" intersect -wa -u -a stdin -b "${PEAK_FILE}" \
+      > "${OUT_ROOT}/macs2/${TARGET_PREFIX}_FRiP_fragments.tsv"
+
+    python "${COUNT_FRAG_SCRIPT}" \
+      --input "${OUT_ROOT}/macs2/${TARGET_PREFIX}_FRiP_fragments.tsv" \
+      --output "${OUT_ROOT}/macs2/${TARGET_PREFIX}_FRiP_fragments_count.xls"
+
+    rm -f "${SAM}" "${OUT_ROOT}/macs2/${TARGET_PREFIX}_FRiP_fragments.tsv"
+  done
+
+  # ------------------------------------------------------------
+  # 8) Summarize TSS enrichment across targets (optional)
+  # ------------------------------------------------------------
+  "${COMPUTE_MATRIX}" reference-point --referencePoint TSS -b 2000 -a 2000 \
+    -R "${TSS_GTF}" -S "${OUT_ROOT}/bw/${SAMPLE}"*.bw \
+    --skipZeros -o "${OUT_ROOT}/bw/${SAMPLE}_tss_matrix.gz" -p max
+
+  "${PLOT_PROFILE}" -m "${OUT_ROOT}/bw/${SAMPLE}_tss_matrix.gz" \
+    --refPointLabel "TSS" -o "${OUT_ROOT}/bw/${SAMPLE}_tss_profile.pdf" \
+    --outFileNameData "${OUT_ROOT}/bw/${SAMPLE}_tss_profile.txt"
+
+  "${PLOT_HEATMAP}" -m "${OUT_ROOT}/bw/${SAMPLE}_tss_matrix.gz" \
+    --refPointLabel "TSS" -o "${OUT_ROOT}/bw/${SAMPLE}_tss_heatmap.pdf"
+
+done < "${META_TXT}"
