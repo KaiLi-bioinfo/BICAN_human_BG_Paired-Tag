@@ -20,6 +20,7 @@ Key related resources and publications include:
 
 - **Basal ganglia HiC loop & ABC link:**  
   A Multimodal Single-Cell Epigenomic and 3D Genome Atlas of the Human Basal Ganglia [link]
+  https://github.com/DingWB/BG_snm3C-seq
 
 - **Basal ganglia Visualization of single-cell multi-omics data:**  
   An Integrated Single-Cell and Epigenomic Resource for Comparative Analysis of the Basal Ganglia [link]
