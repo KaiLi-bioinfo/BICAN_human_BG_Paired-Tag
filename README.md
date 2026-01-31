@@ -32,6 +32,20 @@ Key related resources and publications include:
   *Nature structural & molecular biology* (2023) — Droplet-based single-cell joint profiling of histone modifications and transcriptomes.
   https://www.nature.com/articles/s41594-023-01060-1
      https://github.com/Xieeeee/Droplet-Paired-Tag
+
+- ## Quality Control, Peak Calling, and Chromatin State Annotation:**  
+
+Quality control and pseudo-bulk peak calling were conducted separately for each cell type following the ENCODE histone ChIP-seq standards. Peaks were called using the ENCODE ChIP-seq processing pipeline, and replicate consistency was evaluated using the Irreproducible Discovery Rate (IDR) framework. Chromatin state modeling and segmentation were performed using ChromHMM according to ENCODE-recommended protocols.
+
+References:
+- ENCODE histone ChIP-seq pipeline  
+  https://www.encodeproject.org/chip-seq/histone/
+
+- IDR software  
+  https://www.encodeproject.org/software/idr/
+
+- ChromHMM strategy  
+  https://www.encodeproject.org/publications/8468259b-3be2-4483-970c-9ce1d4d93f3a/
   
 - **Homeobox gene family overview:**  
   Springer Biology Reports (2007) — Review of homeobox genes and developmental regulatory roles.  
