@@ -10,7 +10,7 @@ This repository supports a comprehensive single-cell Paired-Tag study of the adu
 ## Data
 Raw sequencing data are available through controlled-access repositories. Processed data objects are described in the analysis notebooks.
 
-## Quality Control, Peak Calling, and Chromatin State Annotation:**  
+## Quality Control, Peak Calling, and Chromatin State Annotation:
 
 Quality control and pseudo-bulk peak calling were conducted separately for each cell type following the ENCODE histone ChIP-seq standards. Peaks were called using the ENCODE ChIP-seq processing pipeline, and replicate consistency was evaluated using the Irreproducible Discovery Rate (IDR) framework. Chromatin state modeling and segmentation were performed using ChromHMM according to ENCODE-recommended protocols.
 
