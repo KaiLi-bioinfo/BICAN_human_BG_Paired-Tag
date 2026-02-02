@@ -43,6 +43,8 @@ References:
 - **Basal ganglia Visualization of single-cell multi-omics data:**  
   An Integrated Single-Cell and Epigenomic Resource for Comparative Analysis of the Basal Ganglia [link]
   https://basalganglia.epigenomes.net/.
+  Visualize conserved and divergent histone modification
+  https://wangcluster.wustl.edu/~wzhang/projects/MSN_epigenome/
 
 - **Paired-Tag method and analysis:**  
   *Nature Methods* (2021) — Introducing the Paired-Tag protocol for joint profiling of histone modifications and transcription.  
