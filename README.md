@@ -42,7 +42,8 @@ References:
 
 - **Basal ganglia Visualization of single-cell multi-omics data:**  
   An Integrated Single-Cell and Epigenomic Resource for Comparative Analysis of the Basal Ganglia [link]
-  https://basalganglia.epigenomes.net/.
+  https://basalganglia.epigenomes.net/
+
   Visualize conserved and divergent histone modification
   https://wangcluster.wustl.edu/~wzhang/projects/MSN_epigenome/
 
@@ -52,6 +53,7 @@ References:
   *Nature structural & molecular biology* (2023) — Droplet-based single-cell joint profiling of histone modifications and transcriptomes.
   https://www.nature.com/articles/s41594-023-01060-1
      https://github.com/Xieeeee/Droplet-Paired-Tag
+
 - **enhancer & sliencer annotation strategies Based on HiC loop:**  
   Subtype-specific 3D genome alteration in acute myeloid leukaemia
   https://pubmed.ncbi.nlm.nih.gov/36289338/  
