@@ -10,15 +10,13 @@ This repository provides a cluster-ready, reproducible pipeline for:
 	•	TSS enrichment QC
 
 Designed for:
-	•	single-cell ATAC / CUT&Tag / Paired-Tag
+	•	Droplet Paired-Tag / Paired-Tag
 	•	multi-target histone profiling (H3K27ac / H3K27me3 / H3K9me3)
 	•	SLURM cluster
 
 
 
-
-
-# 1) mkfastq（Cell Ranger ARC）
+# 1) mkfastq（CellRanger ARC）
 
 #!/usr/bin/env bash
 #SBATCH -J arc_mkfastq
