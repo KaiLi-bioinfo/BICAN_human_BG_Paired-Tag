@@ -37,11 +37,11 @@ References:
   https://assets.nemoarchive.org/dat-rrstbt3 
 
 - **Basal ganglia HiC loop & ABC link:**  
-  A Multimodal Single-Cell Epigenomic and 3D Genome Atlas of the Human Basal Ganglia. [link]
+  A Multimodal Single-Cell Epigenomic and 3D Genome Atlas of the Human Basal Ganglia. https://www.biorxiv.org/content/10.64898/2026.02.12.705594v1.full
   https://github.com/DingWB/BG_snm3C-seq
 
 - **Basal ganglia Visualization of single-cell multi-omics data:**  
-  An Integrated Single-Cell and Epigenomic Resource for Comparative Analysis of the Basal Ganglia [link]
+  An Integrated Single-Cell and Epigenomic Resource for Comparative Analysis of the Basal Ganglia (https://www.biorxiv.org/content/10.64898/2026.01.29.702575v1.full)
   https://basalganglia.epigenomes.net/
 
   Visualize conserved and divergent histone modification
