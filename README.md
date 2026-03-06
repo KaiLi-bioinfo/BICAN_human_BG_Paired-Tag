@@ -32,6 +32,7 @@ References:
   https://www.biorxiv.org/content/10.64898/2025.12.15.694496v1  
   **Corresponding atlas data:**  
   https://brain-map.org/consortia/hmba
+  https://knowledge.brain-map.org/data/AZVI1B2RRF5O23LL47C
 
 - **Human Basal ganglia  Droplet Paired-Tag datasets deposited at NeMo:**  
   https://assets.nemoarchive.org/dat-rrstbt3 
