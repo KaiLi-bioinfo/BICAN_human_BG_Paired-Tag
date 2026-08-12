@@ -44,6 +44,7 @@ References:
 - **Basal ganglia Visualization of single-cell multi-omics data:**  
   An Integrated Single-Cell and Epigenomic Resource for Comparative Analysis of the Basal Ganglia (https://www.biorxiv.org/content/10.64898/2026.01.29.702575v1.full)
   https://basalganglia.epigenomes.net/
+  Cell Reports Methods (2026), https://doi.org/10.1016/j.crmeth.2026.101567
 
   Visualize conserved and divergent histone modification
   https://wangcluster.wustl.edu/~wzhang/projects/MSN_epigenome/
